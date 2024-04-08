@@ -1,31 +1,34 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-export default function HostVanDetail() {
-  const params = useParams();
-  const [hostVan, setHostVan] = useState(null);
+import React from "react";
+import { useParams, Link } from "react-router-dom";
 
-  useEffect(() => {
-    fetch(`/api/vans/${params.id}`)
+export default function HostVanDetail() {
+  const { id } = useParams();
+  const [currentVan, setCurrentVan] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch(`/api/host/vans/${id}`)
       .then((res) => res.json())
-      .then((data) => setHostVan(data.vans));
-  }, [params.id]);
+      .then((data) => setCurrentVan(data.vans));
+  }, []);
+
+  if (!currentVan) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
-    <div className="van-detail-container">
-      {hostVan ? (
-        <div className="van-detail">
-          <img src={hostVan.imageUrl} />
-          <i className={`van-type ${hostVan.type} selected`}>{hostVan.type}</i>
-          <h2>{hostVan.name}</h2>
-          <p className="van-price">
-            <span>${hostVan.price}</span>/day
-          </p>
-          <p>{hostVan.description}</p>
-          <button className="link-button">Rent this van</button>
+    <section>
+      <div className="host-van-detail-layout-container">
+        <div className="host-van-detail">
+          <img src={currentVan.imageUrl} />
+          <div className="host-van-detail-info-text">
+            <i className={`van-type van-type-${currentVan.type}`}>
+              {currentVan.type}
+            </i>
+            <h3>{currentVan.name}</h3>
+            <h4>${currentVan.price}/day</h4>
+          </div>
         </div>
-      ) : (
-        <h2>Loading...</h2>
-      )}
-    </div>
+      </div>
+    </section>
   );
 }
