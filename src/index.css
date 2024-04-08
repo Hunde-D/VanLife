@@ -1,0 +1,17 @@
+@media (min-width: 600px) {
+  header {
+    height: 70px;
+  }
+  .home-container {
+    background-size: cover; /* Adjust the background size to prevent stretching */
+    padding-inline: 30%;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  main {
+    margin-bottom: 2px;
+  }
+}
