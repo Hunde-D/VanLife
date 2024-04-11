@@ -1,5 +1,6 @@
+import React from "react";
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
-import { getVans } from "../../API";
+import { getVans } from "../../api";
 
 export function loader() {
   return getVans();
@@ -7,9 +8,36 @@ export function loader() {
 
 export default function Vans() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [error, setError] = React.useState(null);
   const vans = useLoaderData();
 
   const typeFilter = searchParams.get("type");
+
+  const displayedVans = typeFilter
+    ? vans.filter((van) => van.type === typeFilter)
+    : vans;
+
+  const vanElements = displayedVans.map((van) => (
+    <div key={van.id} className="van-tile">
+      <Link
+        to={van.id}
+        state={{
+          search: `?${searchParams.toString()}`,
+          type: typeFilter,
+        }}
+      >
+        <img src={van.imageUrl} />
+        <div className="van-info">
+          <h3>{van.name}</h3>
+          <p>
+            ${van.price}
+            <span>/day</span>
+          </p>
+        </div>
+        <i className={`van-type ${van.type} selected`}>{van.type}</i>
+      </Link>
+    </div>
+  ));
 
   function handleFilterChange(key, value) {
     setSearchParams((prevParams) => {
@@ -22,30 +50,9 @@ export default function Vans() {
     });
   }
 
-  const displayedVans = typeFilter
-    ? vans.filter((van) => van.type === typeFilter)
-    : vans;
-
-  const vanElements = displayedVans.map((van) => (
-    <div key={van.id} className="van-tile">
-      <Link
-        to={van.id}
-        aria-label={`View details for ${van.name}, 
-                             priced at $${van.price} per day`}
-        state={{ search: `?${searchParams.toString()}`, type: typeFilter }}
-      >
-        <img src={van.imageUrl} alt={`Image of ${van.name}`} />
-        <div className="van-info">
-          <h3>{van.name}</h3>
-          <p>
-            ${van.price}
-            <span>/day</span>
-          </p>
-        </div>
-        <i className={`van-type ${van.type} selected`}>{van.type}</i>
-      </Link>
-    </div>
-  ));
+  if (error) {
+    return <h1>There was an error: {error.message}</h1>;
+  }
 
   return (
     <div className="van-list-container">

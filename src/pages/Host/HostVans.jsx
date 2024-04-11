@@ -9,8 +9,12 @@ export default function HostVans() {
   useEffect(() => {
     async function loadHostVans() {
       setLoading(true);
-      let data = await getVans();
-      setVans(data);
+      try {
+        const data = await getVans();
+        setVans(data);
+      } catch (err) {
+        console.log(err);
+      }
       setLoading(false);
     }
     loadHostVans();
