@@ -537,3 +537,11 @@ i[class*="van-type-"] {
 .login-form > button:active {
   transform: scale(0.99); /* Make the button slightly smaller when clicked */
 }
+.login-form > button:disabled {
+  background-color: #aaaaaa;
+  cursor: not-allowed;
+}
+
+.red {
+  color: #cc0000;
+}
