@@ -8,14 +8,13 @@ import {
 } from "react-router-dom";
 import { getVans } from "../../API";
 
-export function loader() {
-  return defer({ vans: getVans() });
+export async function loader() {
+  return defer({ vans: await getVans() });
 }
 
 export default function Vans() {
   const [searchParams, setSearchParams] = useSearchParams();
   const vansPromise = useLoaderData();
-
   const typeFilter = searchParams.get("type");
 
   function handleFilterChange(key, value) {
@@ -30,10 +29,15 @@ export default function Vans() {
   }
 
   function renderVansElement(vans) {
+    console.log(typeFilter);
+    console.log(vans);
+    console.log("1");
     const displayedVans = typeFilter
       ? vans.filter((van) => van.type === typeFilter)
       : vans;
 
+    console.log(displayedVans);
+    console.log("2");
     const vanElements = displayedVans.map((van) => (
       <div key={van.id} className="van-tile">
         <Link
