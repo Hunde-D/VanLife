@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   useLoaderData,
   Form,
@@ -35,16 +34,6 @@ export default function Login() {
   const navigation = useNavigation();
   const errorMessage = useActionData();
   const message = useLoaderData();
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setStatus("submitting");
-    loginUser(loginFormData)
-      .then((data) => {
-        navigate("/host", { replace: true });
-      })
-      .finally(() => setStatus("idle"));
-  }
 
   return (
     <div className="login-container">
