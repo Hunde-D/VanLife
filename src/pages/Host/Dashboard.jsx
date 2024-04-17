@@ -56,7 +56,7 @@ export default function Dashboard() {
           <h2>Your listed vans</h2>
           <Link to="vans">View all</Link>
         </div>
-        <Suspense fallback={<h3>Loading...</h3>}>
+        <Suspense fallback={<h3 className="loading">🌀 Loading...</h3>}>
           <Await resolve={loaderData.vans}>{renderVanElements}</Await>
         </Suspense>
       </section>

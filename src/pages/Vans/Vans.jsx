@@ -97,9 +97,7 @@ export default function Vans() {
     <div className="van-list-container">
       <h1>Explore our van options</h1>
       <Suspense fallback={<h3 className="loading">🌀 Loading...</h3>}>
-        <Await resolve={vansPromise.vans} className="fade-in">
-          {renderVansElement}
-        </Await>
+        <Await resolve={vansPromise.vans}>{renderVansElement}</Await>
       </Suspense>
     </div>
   );
