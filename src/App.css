@@ -545,3 +545,15 @@ i[class*="van-type-"] {
 .red {
   color: #cc0000;
 }
+.fade-in {
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -9,7 +9,7 @@ import {
 import { getVans } from "../../API";
 
 export async function loader() {
-  return defer({ vans: await getVans() });
+  return defer({ vans: getVans() });
 }
 
 export default function Vans() {
@@ -29,15 +29,10 @@ export default function Vans() {
   }
 
   function renderVansElement(vans) {
-    console.log(typeFilter);
-    console.log(vans);
-    console.log("1");
     const displayedVans = typeFilter
       ? vans.filter((van) => van.type === typeFilter)
       : vans;
 
-    console.log(displayedVans);
-    console.log("2");
     const vanElements = displayedVans.map((van) => (
       <div key={van.id} className="van-tile">
         <Link
@@ -101,9 +96,9 @@ export default function Vans() {
   return (
     <div className="van-list-container">
       <h1>Explore our van options</h1>
-      <Suspense fallback={<h3>Loading...</h3>}>
-        <Await resolve={vansPromise}>
-          {renderVansElement(vansPromise.vans)}
+      <Suspense fallback={<h3 className="loading">🌀 Loading...</h3>}>
+        <Await resolve={vansPromise.vans} className="fade-in">
+          {renderVansElement}
         </Await>
       </Suspense>
     </div>
