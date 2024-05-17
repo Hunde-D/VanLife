@@ -1,6 +1,10 @@
 * {
   box-sizing: border-box;
 }
+#root {
+  width: 500px;
+  border: #ffcc8d 1px solid;
+}
 
 html,
 body {
@@ -8,6 +12,10 @@ body {
   padding: 0;
   background-color: #fff7ed;
   font-family: "Inter", sans-serif;
+}
+body {
+  display: flex;
+  justify-content: center;
 }
 
 a {
@@ -82,12 +90,12 @@ main {
 footer {
   background-color: #161616;
   color: #aaaaaa;
-  height: 74px;
+  height: 50px;
   display: flex;
   flex-shrink: 0;
   justify-content: center;
   align-items: center;
-  margin-top: auto;
+  margin-top: 20px;
   font-weight: 500;
 }
 
@@ -109,12 +117,19 @@ footer {
   color: black;
   text-decoration: none;
   margin-left: 26px;
+  height: 5px;
 }
 
 .back-button span:hover {
   text-decoration: underline;
 }
-
+.fakeLogout {
+  background-color: transparent;
+  color: #161616;
+  cursor: pointer;
+  border: 1px solid #161616;
+  border-radius: 5px;
+}
 .link-button:hover {
   transform: translate(1px, 1px);
 }

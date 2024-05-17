@@ -7,7 +7,6 @@ import {
   Await,
 } from "react-router-dom";
 import { getVans } from "../../API";
-
 export async function loader() {
   return defer({ vans: getVans() });
 }
